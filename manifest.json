@@ -1,11 +1,11 @@
 {
-  "name": "Woori Portal",
+  "name": "Woori Consulting",
   "short_name": "Woori",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#eef3fb",
-  "theme_color": "#0a3d8f",
+  "background_color": "#ffffff",
+  "theme_color": "#0059c8",
   "icons": [
     {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
     {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
