@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Woori Portal</title>
+<meta name="theme-color" content="#0a3d8f">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Woori">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef3fb;--surface:#ffffff;--text:#0f1d33;--muted:#5a6a82;--brand:#0a3d8f;--line:#d6e0ef;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#0c1524;--surface:#15223a;--text:#e8eefa;--muted:#9aabc6;--brand:#6aa3ff;--line:#24365a;color-scheme:dark}}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--text);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+main{max-width:34rem;margin:0 auto;padding:2.5rem 1.25rem 2rem}
+.hello{font-size:clamp(2.2rem,9vw,3.2rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin:0 0 .4rem;color:var(--brand)}
+.sub{margin:0 0 2rem;color:var(--muted)}
+.apps{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.apps a{display:flex;align-items:center;gap:1rem;padding:1.1rem .25rem;border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
+.apps a:hover .name,.apps a:focus-visible .name{color:var(--brand)}
+.apps a:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:6px}
+.badge{flex:none;width:3rem;height:3rem;border-radius:14px;display:grid;place-items:center;font-weight:800;color:#fff;font-size:1.05rem}
+.name{font-weight:600;font-size:1.1rem;display:block}
+.desc{color:var(--muted);font-size:.9rem}
+.chev{margin-left:auto;color:var(--muted);font-size:1.4rem}
+.install{margin-top:2rem;width:100%;padding:.9rem;border:0;border-radius:12px;background:var(--brand);color:#fff;font:600 1rem inherit;font-family:inherit;cursor:pointer;display:none}
+.install:focus-visible{outline:3px solid var(--text);outline-offset:2px}
+footer{margin-top:2.5rem;color:var(--muted);font-size:.8rem;text-align:center}
+</style>
+</head>
+<body>
+<main>
+  <h1 class="hello" id="hello">Halo</h1>
+  <p class="sub">Pilih aplikasi yang ingin dibuka.</p>
+  <ul class="apps">
+    <li><a href="https://woori-com.hnz.my.id/">
+      <span class="badge" style="background:#0a3d8f">CO</span>
+      <span><span class="name">Woori COM</span><span class="desc">Aplikasi COM</span></span>
+      <span class="chev" aria-hidden="true">›</span></a></li>
+    <li><a href="https://woori-hrd.hnz.my.id/">
+      <span class="badge" style="background:#0f8a6a">HR</span>
+      <span><span class="name">Woori HRD</span><span class="desc">Data &amp; administrasi karyawan</span></span>
+      <span class="chev" aria-hidden="true">›</span></a></li>
+    <li><a href="https://heinsyen-git.github.io/clean-app/">
+      <span class="badge" style="background:#d4572a">CL</span>
+      <span><span class="name">Clean App</span><span class="desc">Aplikasi kebersihan</span></span>
+      <span class="chev" aria-hidden="true">›</span></a></li>
+  </ul>
+  <button class="install" id="install">Pasang di layar utama</button>
+  <footer>Woori Portal</footer>
+</main>
+<script>
+const h=new Date().getHours();
+document.getElementById('hello').textContent=h<11?'Selamat pagi':h<15?'Selamat siang':h<19?'Selamat sore':'Selamat malam';
+let deferred;const btn=document.getElementById('install');
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;btn.style.display='block'});
+btn.addEventListener('click',async()=>{if(!deferred)return;deferred.prompt();await deferred.userChoice;deferred=null;btn.style.display='none'});
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
+</script>
+</body>
+</html>
